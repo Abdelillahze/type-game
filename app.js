@@ -200,6 +200,7 @@ let scoreTotal = document.querySelector(".score .total");
 let finishMessage = document.querySelector(".finish");
 let record = document.querySelector(".record span");
 let selector = document.querySelector("select");
+let check = true;
 // Setting Level Name + Seconds + Score
 
 lvlNameSpan.innerHTML = defaultLevelName;
@@ -225,7 +226,12 @@ function start() {
   // show upcoming words
   upComingWords(dif);
   // start Game
-  startGame(word, lvls[selector.value], dif);
+  window.addEventListener("keypress", () => {
+    if (check == true) {
+      startGame(word, lvls[selector.value], dif);
+      check = false;
+    }
+  });
   // difficulty
 }
 
@@ -301,7 +307,11 @@ function stage(word, sec, checking, dif) {
         finishMessage.innerHTML = "Congarts";
         // localStrage
         yourBest = scoreGot.innerHTML;
-        localStorage.setItem("record", JSON.stringify(yourBest));
+        try {
+          if (localStorage.getItem("record") < yourBest) {
+            localStorage.setItem("record", JSON.stringify(yourBest));
+          }
+        } catch {}
         return;
       }
       // continueGame
