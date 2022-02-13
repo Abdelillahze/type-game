@@ -297,7 +297,7 @@ function stage(word, sec, checking, dif) {
   }, sec * 1000);
   // check if the word is the same as input value
   let check = setInterval(() => {
-    if (input.value.toLowerCase() == word.toLowerCase()) {
+    if (input.value.toLowerCase().trim() == word.toLowerCase()) {
       clearInterval(countDown);
       clearInterval(timer);
       clearInterval(check);
